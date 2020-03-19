@@ -18,7 +18,7 @@ docker build -t asterisk-alticelabs:yourtag .
 ## 🧰 Running
 To run this container, you simply have to map a port on your server to the container's 5060 port (1), the default SIP port, and forward some ports in the host (2):
 
-(1) `docker run -p 5060:5060/udp -it cmenezes98/alb-asterisk`
+(1) `docker run -p 5060:5060/udp -it cmenezes98/asterisk-alticelabs`
 
 Aftewards, simply run `asterisk -c` (aditionally, `asterisk -cvvvvv`, -v matching the verbosity level) to start the Asterisk server.
 
