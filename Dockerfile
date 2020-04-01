@@ -47,10 +47,20 @@ RUN make install
 RUN make samples
 
 RUN rm -rf /etc/asterisk/sip.conf
-COPY ./sip.conf /etc/asterisk/
-RUN rm -rf /etc/asterisk/extensions.conf
-COPY ./extensions.conf /etc/asterisk/
+COPY ./config/sip.conf /etc/asterisk/
 
-EXPOSE 5060/tcp 5060/udp
-# PORTAS A EXPOR NO HOST: UDP 5060,4569,5036,10000-20000,2727
+RUN rm -rf /etc/asterisk/extensions.conf
+COPY ./config/extensions.conf /etc/asterisk/
+
+RUN rm -rf /etc/asterisk/http.conf
+COPY ./config/http.conf /etc/asterisk/
+
+RUN rm -rf /etc/asterisk/ari.conf
+COPY ./config/ari.conf /etc/asterisk/
+
+RUN yum install -y http://repo.okay.com.mx/centos/7/x86_64/release/okay-release-1-1.noarch.rpm
+RUN yum install -y sngrep
+
+EXPOSE 5060/tcp 5060/udp 8088/tcp
+# PORTAS A EXPOR NO HOST: UDP 5060,4569,5036,10000-20000,2727; TCP 8088
 RUN echo "Run asterisk -cvvvvv to start Asterisk"
